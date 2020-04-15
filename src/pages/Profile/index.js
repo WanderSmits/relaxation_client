@@ -1,19 +1,33 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
+
+import { postProfile } from "../../store/profile/actions";
 
 export default function Profile() {
-  const [interval, setInterval] = useState(false);
-  const [content, setContent] = useState("");
+  const [interval, setInterval] = useState(3);
+  const [notification, setNotification] = useState("");
+  const [totalTime, setTotalTime] = useState(5);
+
+  const dispatch = useDispatch();
 
   function submitPreferences(event) {
     event.preventDefault();
-    console.log("name", interval);
-    // dispatch(postStory(name, content, imageUrl));
+
+    const intInterval = parseInt(interval.charAt(0));
+
+    console.log(
+      "interval",
+      intInterval,
+      "notification",
+      notification,
+      "Total time?",
+      totalTime
+    );
+    dispatch(postProfile(intInterval, notification, totalTime));
   }
 
   return (
@@ -28,7 +42,7 @@ export default function Profile() {
           value={interval}
           label="3 seconds"
           value={interval}
-          onChange={() => setInterval(3)}
+          onChange={(event) => setInterval(event.target.value)}
           name="interval"
           id="radio1"
           checked
@@ -36,7 +50,7 @@ export default function Profile() {
         <Form.Check
           type="radio"
           value={interval}
-          onChange={() => setInterval(4)}
+          onChange={(event) => setInterval(event.target.value)}
           label="4 seconds"
           name="interval"
           id="radio2"
@@ -44,7 +58,7 @@ export default function Profile() {
         <Form.Check
           type="radio"
           value={interval}
-          onChange={() => setInterval(5)}
+          onChange={(event) => setInterval(event.target.value)}
           label="5 seconds"
           name="interval"
           id="radio2"
@@ -53,28 +67,36 @@ export default function Profile() {
 
       <Form.Group>
         <Form.Label>
-          <h4>Notify me at: </h4>
+          <h4>Notify me every day at: </h4>
         </Form.Label>
         <Form.Control
-          value={content}
-          onChange={(event) => setContent(event.target.value)}
-          type="textarea"
-          placeholder="Your cool story goes here"
+          value={notification}
+          onChange={(event) => setNotification(event.target.value)}
+          type="time"
+          placeholder="Notify me"
         />
       </Form.Group>
-      {/*
+
       <Form.Group>
-        <Form.Label>Your cool story link</Form.Label>
+        <Form.Label>
+          <h4>Total time session</h4>
+        </Form.Label>
+
         <Form.Control
-          value={imageUrl}
-          onChange={(event) => setImageUrl(event.target.value)}
-          type="text"
-          placeholder="Your image"
-        /> */}
-      {/* </Form.Group> */}
+          value={totalTime}
+          min="1"
+          max="10"
+          step="1"
+          onChange={(event) => setTotalTime(event.target.value)}
+          type="range"
+        />
+        <Form.Label>
+          <p>{`${totalTime} minutes`} </p>
+        </Form.Label>
+      </Form.Group>
       <Form.Group className="mt-5">
         <Button variant="primary" type="submit" onClick={submitPreferences}>
-          Save changes
+          Save changes and start breathing
         </Button>
       </Form.Group>
     </Form>
