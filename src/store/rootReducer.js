@@ -6,4 +6,5 @@ import profile from "./profile/reducer";
 export default combineReducers({
   appState,
   user,
+  profile,
 });
