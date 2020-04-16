@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { useHistory } from "react-router-dom";
+import Breathing from "../Breathing";
+
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -13,6 +16,7 @@ export default function Profile() {
   const [totalTime, setTotalTime] = useState(5);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   function submitPreferences(event) {
     event.preventDefault();
@@ -21,17 +25,8 @@ export default function Profile() {
 
     const dateSubmit = dateNow.toString();
 
-    console.log(
-      "interval",
-      interval,
-      "notification",
-      notification,
-      "Total time?",
-      totalTime,
-      "Current date",
-      dateSubmit
-    );
     dispatch(postProfile(interval, notification, totalTime, dateSubmit));
+    history.push("/breathing/");
     setInterval(3);
     setNotification("");
     setTotalTime(5);
@@ -102,9 +97,16 @@ export default function Profile() {
         </Form.Label>
       </Form.Group>
       <Form.Group className="mt-5">
-        <Button variant="primary" type="submit" onClick={submitPreferences}>
-          Save changes and start breathing
-        </Button>
+        <Form>
+          <Button
+            className="btn btn-primary"
+            variant="primary"
+            type="submit"
+            onClick={submitPreferences}
+          >
+            Save changes and start breathing
+          </Button>
+        </Form>
       </Form.Group>
     </Form>
   );
