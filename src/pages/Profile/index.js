@@ -16,15 +16,22 @@ export default function Profile() {
 
   function submitPreferences(event) {
     event.preventDefault();
+
+    const dateNow = Date(Date.now);
+
+    const dateSubmit = dateNow.toString();
+
     console.log(
       "interval",
       interval,
       "notification",
       notification,
       "Total time?",
-      totalTime
+      totalTime,
+      "Current date",
+      dateSubmit
     );
-    dispatch(postProfile(interval, notification, totalTime));
+    dispatch(postProfile(interval, notification, totalTime, dateSubmit));
     setInterval(3);
     setNotification("");
     setTotalTime(5);
