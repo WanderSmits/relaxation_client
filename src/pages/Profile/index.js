@@ -16,18 +16,18 @@ export default function Profile() {
 
   function submitPreferences(event) {
     event.preventDefault();
-
-    const intInterval = parseInt(interval.charAt(0));
-
     console.log(
       "interval",
-      intInterval,
+      interval,
       "notification",
       notification,
       "Total time?",
       totalTime
     );
-    dispatch(postProfile(intInterval, notification, totalTime));
+    dispatch(postProfile(interval, notification, totalTime));
+    setInterval(3);
+    setNotification("");
+    setTotalTime(5);
   }
 
   return (
@@ -42,15 +42,15 @@ export default function Profile() {
           value={interval}
           label="3 seconds"
           value={interval}
-          onChange={(event) => setInterval(event.target.value)}
+          onChange={() => setInterval(3)}
           name="interval"
           id="radio1"
-          checked
+          defaultChecked
         />
         <Form.Check
           type="radio"
           value={interval}
-          onChange={(event) => setInterval(event.target.value)}
+          onChange={() => setInterval(4)}
           label="4 seconds"
           name="interval"
           id="radio2"
@@ -58,7 +58,7 @@ export default function Profile() {
         <Form.Check
           type="radio"
           value={interval}
-          onChange={(event) => setInterval(event.target.value)}
+          onChange={() => setInterval(5)}
           label="5 seconds"
           name="interval"
           id="radio2"
