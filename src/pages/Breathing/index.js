@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import Button from "react-bootstrap/Button";
+
 import { useSelector } from "react-redux";
 import { selectProfile } from "../../store/profile/selector";
 import BreatheIn from "../../components/BreatheIn";
@@ -11,19 +13,18 @@ export default function Breathing() {
   const [isBreathing, setIsBreathing] = useState(false);
   const [startCounting, setStartCounting] = useState(false);
   const [exercise, setExercise] = useState(true);
-  const [counter, setCounter] = useState(0.1 * 60);
+  const [counter, setCounter] = useState(10 * 60);
   const [doneMessage, setDoneMessage] = useState(false);
 
   const profile = useSelector(selectProfile);
 
   const initialCount = 1 * 60;
-  // const seconds = profile.interval * 1000;
-  const seconds = 3 * 1000;
+  const seconds = profile.interval * 1000;
 
   function toggle() {
     setIsBreathing(!isBreathing);
     setStartCounting(!startCounting);
-    // setCounter(initialCount);
+    setCounter(initialCount);
   }
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export default function Breathing() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              height: "30vh",
+              height: "40vh",
             }}
           >
             {exercise ? <BreatheIn /> : <BreatheOut />}
@@ -60,28 +61,44 @@ export default function Breathing() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              height: "30vh",
+              height: "10vh",
             }}
           >
-            {!isBreathing ? <button onClick={toggle}>Breathe!</button> : null}
+            {!isBreathing ? (
+              <Button variant="light" onClick={toggle}>
+                Breathe!
+              </Button>
+            ) : null}
           </div>
+          <h1
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "20vh",
+              color: "black",
+            }}
+          >
+            {isBreathing ? counter : null}
+          </h1>{" "}
           <div
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              height: "30vh",
+              height: "20vh",
             }}
           >
-            {" "}
             {startCounting ? (
               <ProgressExercise
                 counter={counter}
                 initialCount={initialCount}
                 size={200}
                 strokeWidth={7}
-                circleOneStroke={"#7ea9e1"}
-                circleTwoStroke={"#ed004f"}
+                circleOneStroke={
+                  "linear-gradient(180deg, #9c1aff 0%, rgb(119, 0, 255) 100%)"
+                }
+                circleTwoStroke={"#000000"}
                 stopExercise={stopExercise}
               />
             ) : null}
