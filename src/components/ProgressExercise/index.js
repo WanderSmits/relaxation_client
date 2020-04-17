@@ -35,7 +35,6 @@ export default function ProgressExercise(props) {
 
   return (
     <div>
-      <p>{counter}</p>
       <svg className="svg" width={size} height={size}>
         {/* progress circle */}
         <circle
@@ -58,9 +57,6 @@ export default function ProgressExercise(props) {
           strokeDasharray={circumference}
           strokeDashoffset={offset}
         />
-        <text x={`${center}`} y={`${center}`} className="svg-circle-text">
-          {counter}%
-        </text>
       </svg>
     </div>
   );

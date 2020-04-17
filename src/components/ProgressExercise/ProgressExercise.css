@@ -15,6 +15,7 @@
 .svg-circle-text {
   font-size: 2rem;
   text-anchor: middle;
-  fill: #fff;
-  font-weight: bold;
+  font-family: "Helvetica";
+  fill: white;
+  line-height: 1.5;
 }

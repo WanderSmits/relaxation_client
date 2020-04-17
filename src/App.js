@@ -24,7 +24,10 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="App">
+    <div
+      style={{ height: "100vh", backgroundColor: "#FDE8E9" }}
+      className="App"
+    >
       <Navigation />
       <MessageBox />
       {isLoading ? <Loading /> : null}

@@ -12,8 +12,7 @@ export default function DoneExercise() {
         height: "100vh",
       }}
     >
-      <p>Done Exercising </p>
-      <p>Well Done!</p>
+      <p>Done Exercising, well done!</p>
     </div>
   );
 }

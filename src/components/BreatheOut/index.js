@@ -1,5 +1,21 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-export default function index() {
-  return <div>Adem UIT!</div>;
+import BreatheInIcon from "../../img/breath.svg";
+
+export default function BreatheIn() {
+  return (
+    <motion.div
+      style={{
+        width: "100px",
+        height: "50px",
+      }}
+      animate={{ scale: [1.5, 1.2, 1] }}
+      transition={{
+        duration: 5,
+      }}
+    >
+      <img src={BreatheInIcon} />
+    </motion.div>
+  );
 }
