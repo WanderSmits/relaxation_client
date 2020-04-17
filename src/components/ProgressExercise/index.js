@@ -11,25 +11,31 @@ export default function ProgressExercise(props) {
     strokeWidth,
     circleOneStroke,
     circleTwoStroke,
+    stopExercise,
   } = props;
-
-  let fakeDuration = 120;
 
   const center = size / 2;
   const radius = size / 2 - strokeWidth / 2;
   const circumference = 2 * Math.PI * radius;
 
+  console.log(counter);
+  console.log(initialCount);
+
   useEffect(() => {
     const progressOffset =
       circumference - (counter / initialCount) * circumference;
     setOffset(progressOffset);
-
-    circleRef.current.style = "transition: stroke-dashoffset 850ms ease-in-out";
+    if (counter <= 0) {
+      stopExercise();
+    }
+    //shows the progress the circle made in a more smooth way
+    circleRef.current.style =
+      "transition: stroke-dashoffset 1000ms ease-in-out";
   }, [setOffset, counter, circumference, offset]);
 
   return (
     <div>
-      <p> {counter}</p>
+      <p>{counter}</p>
       <svg className="svg" width={size} height={size}>
         {/* progress circle */}
         <circle
@@ -52,9 +58,9 @@ export default function ProgressExercise(props) {
           strokeDasharray={circumference}
           strokeDashoffset={offset}
         />
-        <p x={`${center}`} y={`${center}`} className="svg-circle-text">
+        <text x={`${center}`} y={`${center}`} className="svg-circle-text">
           {counter}%
-        </p>
+        </text>
       </svg>
     </div>
   );
