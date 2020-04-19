@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 import BreatheInIcon from "../../img/breath.svg";
+import BreatheOutSound from "../../sounds/breathe_out.mp3";
 
 export default function BreatheIn(props) {
+  const audio = new Audio(BreatheOutSound);
+
+  useEffect(() => {
+    audio.play();
+  }, []);
+
   return (
     <motion.div
       style={{

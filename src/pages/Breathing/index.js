@@ -12,10 +12,10 @@ import DoneExercise from "../../components/DoneExercise";
 export default function Breathing() {
   const [isBreathing, setIsBreathing] = useState(false);
   const [startCounting, setStartCounting] = useState(false);
+  const [showIcon, setShowIcon] = useState(false);
+  const [doneMessage, setDoneMessage] = useState(false);
   const [exercise, setExercise] = useState(true);
   const [counter, setCounter] = useState(0);
-  const [doneMessage, setDoneMessage] = useState(false);
-  const [showIcon, setShowIcon] = useState(false);
 
   const profile = useSelector(selectProfile);
 
