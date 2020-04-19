@@ -9,10 +9,10 @@ export default function DoneExercise() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: "80vh",
       }}
     >
-      <p>Done Exercising, well done!</p>
+      <p>Done exercising, well done!</p>
     </div>
   );
 }

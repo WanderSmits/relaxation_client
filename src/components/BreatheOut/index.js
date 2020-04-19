@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 import BreatheInIcon from "../../img/breath.svg";
 
-export default function BreatheIn() {
+export default function BreatheIn(props) {
   return (
     <motion.div
       style={{
@@ -12,10 +12,10 @@ export default function BreatheIn() {
       }}
       animate={{ scale: [1.5, 1.2, 1] }}
       transition={{
-        duration: 5,
+        duration: props.duration,
       }}
     >
-      <img src={BreatheInIcon} />
+      <img src={BreatheInIcon} alt="Icon" />
     </motion.div>
   );
 }
