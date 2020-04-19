@@ -18,9 +18,6 @@ export default function ProgressExercise(props) {
   const radius = size / 2 - strokeWidth / 2;
   const circumference = 2 * Math.PI * radius;
 
-  console.log(counter);
-  console.log(initialCount);
-
   useEffect(() => {
     const progressOffset =
       circumference - (counter / initialCount) * circumference;
@@ -31,7 +28,7 @@ export default function ProgressExercise(props) {
     //shows the progress the circle made in a more smooth way
     circleRef.current.style =
       "transition: stroke-dashoffset 1000ms ease-in-out";
-  }, [setOffset, counter, circumference, offset]);
+  }, [setOffset, counter, circumference, offset, stopExercise, initialCount]);
 
   return (
     <div>

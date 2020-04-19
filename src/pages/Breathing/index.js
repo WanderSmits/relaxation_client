@@ -13,8 +13,9 @@ export default function Breathing() {
   const [isBreathing, setIsBreathing] = useState(false);
   const [startCounting, setStartCounting] = useState(false);
   const [exercise, setExercise] = useState(true);
-  const [counter, setCounter] = useState(10 * 60);
+  const [counter, setCounter] = useState(0);
   const [doneMessage, setDoneMessage] = useState(false);
+  const [showIcon, setShowIcon] = useState(false);
 
   const profile = useSelector(selectProfile);
 
@@ -25,6 +26,7 @@ export default function Breathing() {
     setIsBreathing(!isBreathing);
     setStartCounting(!startCounting);
     setCounter(initialCount);
+    setShowIcon(true);
   }
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function Breathing() {
       setTimeout(() => setExercise(!exercise), seconds);
       setTimeout(() => setCounter(counter - 1), 1000);
     }
-  }, [isBreathing, exercise, startCounting, counter]);
+  }, [isBreathing, exercise, startCounting, counter, seconds]);
 
   function stopExercise() {
     setIsBreathing(false);
@@ -54,7 +56,14 @@ export default function Breathing() {
               height: "40vh",
             }}
           >
-            {exercise ? <BreatheIn /> : <BreatheOut />}
+            {/*Double ternary checks if button is clicked, if so show the breathe-in interval*/}
+            {showIcon ? (
+              exercise ? (
+                <BreatheIn duration={profile.interval} />
+              ) : (
+                <BreatheOut duration={profile.interval} />
+              )
+            ) : null}
           </div>
           <div
             style={{
@@ -95,10 +104,8 @@ export default function Breathing() {
                 initialCount={initialCount}
                 size={200}
                 strokeWidth={7}
-                circleOneStroke={
-                  "linear-gradient(180deg, #9c1aff 0%, rgb(119, 0, 255) 100%)"
-                }
-                circleTwoStroke={"#000000"}
+                circleOneStroke={"#ffffff"}
+                circleTwoStroke={"#FDE8E9"}
                 stopExercise={stopExercise}
               />
             ) : null}

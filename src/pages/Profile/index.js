@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
-import Breathing from "../Breathing";
 
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -44,7 +43,6 @@ export default function Profile() {
             type="radio"
             value={interval}
             label="3 seconds"
-            value={interval}
             onChange={() => setInterval(3)}
             name="interval"
             id="radio1"
