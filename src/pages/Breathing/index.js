@@ -9,6 +9,8 @@ import BreatheOut from "../../components/BreatheOut";
 import ProgressExercise from "../../components/ProgressExercise";
 import DoneExercise from "../../components/DoneExercise";
 
+import RainyClouds from "../../img/rainy.svg";
+
 export default function Breathing() {
   const [isBreathing, setIsBreathing] = useState(false);
   const [startCounting, setStartCounting] = useState(false);
@@ -45,7 +47,9 @@ export default function Breathing() {
   return (
     <>
       {!doneMessage ? (
-        <div>
+        <div
+          style={{ height: "100vh", backgroundImage: `url(${RainyClouds})` }}
+        >
           <div
             style={{
               fontSize: "3rem",
@@ -56,7 +60,7 @@ export default function Breathing() {
               height: "40vh",
             }}
           >
-            {/*Double ternary checks if button is clicked, if so show the breathe-in interval*/}
+            {/*Double ternary checks if button is clicked, if so show the icon and start the breathe-in interval*/}
             {showIcon ? (
               exercise ? (
                 <BreatheIn duration={profile.interval} />
@@ -105,7 +109,7 @@ export default function Breathing() {
                 size={200}
                 strokeWidth={7}
                 circleOneStroke={"#ffffff"}
-                circleTwoStroke={"#FDE8E9"}
+                circleTwoStroke={"#08aae1"}
                 stopExercise={stopExercise}
               />
             ) : null}

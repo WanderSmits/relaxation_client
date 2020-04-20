@@ -9,6 +9,7 @@ export default function BreatheIn(props) {
 
   useEffect(() => {
     audio.play();
+    audio.volume = 0.3;
   }, []);
 
   return (
@@ -22,7 +23,7 @@ export default function BreatheIn(props) {
         duration: props.duration,
       }}
     >
-      <img src={BreatheInIcon} alt="Icon" />
+      <img src={BreatheInIcon} alt="icon" />
     </motion.div>
   );
 }

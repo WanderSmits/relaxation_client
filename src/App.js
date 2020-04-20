@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Breathing from "./pages/Breathing";
+import CloudsBackground from "./img/Clouds.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
@@ -25,7 +26,11 @@ function App() {
 
   return (
     <div
-      style={{ height: "100vh", backgroundColor: "#FDE8E9" }}
+      style={{
+        height: "100vh",
+        backgroundColor: "#08aae1",
+        backgroundImage: `url(${CloudsBackground})`,
+      }}
       className="App"
     >
       <Navigation />
