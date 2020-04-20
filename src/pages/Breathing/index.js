@@ -9,7 +9,8 @@ import BreatheOut from "../../components/BreatheOut";
 import ProgressExercise from "../../components/ProgressExercise";
 import DoneExercise from "../../components/DoneExercise";
 
-import RainyClouds from "../../img/rainy.svg";
+import RainyAnimation from "../../img/rainy_animation.svg";
+import RainySounds from "../../sounds/rain_sounds.mp3";
 
 export default function Breathing() {
   const [isBreathing, setIsBreathing] = useState(false);
@@ -21,8 +22,11 @@ export default function Breathing() {
 
   const profile = useSelector(selectProfile);
 
+  //
   const initialCount = 1 * 60;
   const seconds = profile.interval * 1000;
+
+  const rain = new Audio(RainySounds);
 
   function toggle() {
     setIsBreathing(!isBreathing);
@@ -31,6 +35,17 @@ export default function Breathing() {
     setShowIcon(true);
   }
 
+  function stopExercise() {
+    setIsBreathing(false);
+    setStartCounting(false);
+    setDoneMessage(true);
+  }
+
+  useEffect(() => {
+    rain.play();
+    rain.volume = 0.6;
+  }, []);
+
   useEffect(() => {
     if (isBreathing && startCounting) {
       setTimeout(() => setExercise(!exercise), seconds);
@@ -38,17 +53,11 @@ export default function Breathing() {
     }
   }, [isBreathing, exercise, startCounting, counter, seconds]);
 
-  function stopExercise() {
-    setIsBreathing(false);
-    setStartCounting(false);
-    setDoneMessage(true);
-  }
-
   return (
     <>
       {!doneMessage ? (
         <div
-          style={{ height: "100vh", backgroundImage: `url(${RainyClouds})` }}
+          style={{ height: "100vh", backgroundImage: `url(${RainyAnimation})` }}
         >
           <div
             style={{
