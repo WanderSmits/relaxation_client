@@ -26,6 +26,7 @@ export default function SignUp() {
   function submitForm(event) {
     event.preventDefault();
 
+    history.push("/myprofile");
     dispatch(signUp(name, email, password, phoneNumber));
 
     setEmail("");

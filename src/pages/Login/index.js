@@ -22,11 +22,10 @@ export default function SignUp() {
   }, [token, history]);
 
   function submitForm(event) {
-    console.log("hi");
     event.preventDefault();
 
+    history.push("/myprofile");
     dispatch(login(email, password));
-
     setEmail("");
     setPassword("");
   }
@@ -57,7 +56,12 @@ export default function SignUp() {
           />
         </Form.Group>
         <Form.Group className="mt-5">
-          <Button variant="light" type="submit" onClick={submitForm}>
+          <Button
+            href="/myprofile"
+            variant="light"
+            type="submit"
+            onClick={submitForm}
+          >
             Log in
           </Button>
         </Form.Group>

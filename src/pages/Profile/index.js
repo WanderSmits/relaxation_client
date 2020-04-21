@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
 
@@ -8,20 +8,35 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 import { postProfile } from "../../store/profile/actions";
+import { getHeatmapData } from "../../store/heatmap/actions";
+import { selectHeatmapData } from "../../store/heatmap/selector";
+import { selectToken } from "../../store/user/selectors";
+
+import CalendarHeatmap from "react-calendar-heatmap";
+import "react-calendar-heatmap/dist/styles.css";
+import "./profile.css";
 
 export default function Profile() {
   const [interval, setInterval] = useState(3);
   const [notification, setNotification] = useState("");
   const [totalTime, setTotalTime] = useState(5);
 
+  const heatmapData = useSelector(selectHeatmapData);
+  const token = useSelector(selectToken);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
+  useEffect(() => {
+    if (token === null) {
+      history.push("/");
+    }
+    dispatch(getHeatmapData());
+  }, [token, history]);
+
   function submitPreferences(event) {
     event.preventDefault();
-
     const dateNow = Date(Date.now);
-
     const dateSubmit = dateNow.toString();
 
     dispatch(postProfile(interval, notification, totalTime, dateSubmit));
@@ -30,6 +45,12 @@ export default function Profile() {
     setNotification("");
     setTotalTime(5);
   }
+
+  const progressMade =
+    heatmapData &&
+    heatmapData.map((progress) => {
+      return { date: progress.session.date };
+    });
 
   return (
     <div>
@@ -80,7 +101,7 @@ export default function Profile() {
 
         <Form.Group>
           <Form.Label>
-            <h4>Total time session</h4>
+            <h4>Total time session: </h4>
           </Form.Label>
 
           <Form.Control
@@ -95,9 +116,28 @@ export default function Profile() {
             <p>{`${totalTime} minutes`} </p>
           </Form.Label>
         </Form.Group>
+
+        <h4>Progress: </h4>
+        <div style={{ width: 250 }}>
+          {heatmapData.length ? (
+            <CalendarHeatmap
+              startDate={new Date("2019-12-28")}
+              endDate={new Date("2020-05-01")}
+              values={progressMade}
+              classForValue={(value) => {
+                if (!value) {
+                  return "color-empty";
+                }
+                return `color-scale-${value.count}`;
+              }}
+            />
+          ) : null}
+        </div>
+
         <Form.Group className="mt-5">
           <Form>
             <Button
+              style={{ display: "inline" }}
               className="btn btn-primary"
               variant="light"
               type="submit"

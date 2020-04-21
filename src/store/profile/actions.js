@@ -31,7 +31,7 @@ export const postProfile = (interval, notification, totalTime, dateSubmit) => {
         },
       }
     );
-    console.log("RESPONSE FROM THE THUNK", response.data.postProfile);
+
     dispatch(postProfileSuccess(response.data.postProfile));
   };
 };
