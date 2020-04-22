@@ -12,7 +12,6 @@ export default function Home() {
     dispatch(getQuote());
   }, []);
 
-  console.log("Quote?", quote);
   return (
     <div
       style={{

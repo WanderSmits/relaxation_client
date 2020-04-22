@@ -30,6 +30,9 @@ function App() {
         height: "100vh",
         backgroundColor: "#08aae1",
         backgroundImage: `url(${CloudsBackground})`,
+        fontFamily: "Caveat",
+        // fontFamily: "cursive",
+        color: "white",
       }}
       className="App"
     >

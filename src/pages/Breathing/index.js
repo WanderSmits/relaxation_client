@@ -19,18 +19,19 @@ export default function Breathing() {
   const [doneMessage, setDoneMessage] = useState(false);
   const [exercise, setExercise] = useState(true);
   const [counter, setCounter] = useState(0);
+  //the rain sound at page load
+  const [rain, setRain] = useState(new Audio(RainySounds));
 
   const profile = useSelector(selectProfile);
 
-  //
+  // the duration of the exercise
   const initialCount = 0.1 * 60;
+
+  // if profile.interval == undefined set default value
   const seconds =
     profile.interval == undefined
       ? (profile.interval = 3)
       : profile.interval * 1000;
-
-  console.log("Interval", profile.interval);
-  const rain = new Audio(RainySounds);
 
   function toggle() {
     setIsBreathing(!isBreathing);
@@ -54,9 +55,7 @@ export default function Breathing() {
     setIsBreathing(false);
     setStartCounting(false);
     setDoneMessage(true);
-    rain.pause();
-    rain.volume = 0;
-    rain.currentTime = 0;
+    setRain(rain.pause());
   }
 
   return (
@@ -99,7 +98,11 @@ export default function Breathing() {
               <Button variant="light" onClick={toggle}>
                 Breathe!
               </Button>
-            ) : null}
+            ) : (
+              <Button variant="light" onClick={toggle}>
+                Pause!
+              </Button>
+            )}
           </div>
           <h1
             style={{
