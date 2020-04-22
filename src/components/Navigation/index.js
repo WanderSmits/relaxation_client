@@ -22,7 +22,7 @@ export default function Navigation() {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav style={{ width: "100%" }} fill>
           {token ? (
-            <NavbarItem path="/myprofile" linkText="My Profile" />
+            <NavbarItem path="/myprofile" linkText="Exercise settings" />
           ) : null}
           {loginLogoutControls}
         </Nav>
