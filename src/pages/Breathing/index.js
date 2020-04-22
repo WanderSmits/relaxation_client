@@ -23,7 +23,7 @@ export default function Breathing() {
   const profile = useSelector(selectProfile);
 
   //
-  const initialCount = 1 * 60;
+  const initialCount = 0.1 * 60;
   const seconds = profile.interval * 1000;
 
   const rain = new Audio(RainySounds);
@@ -33,18 +33,8 @@ export default function Breathing() {
     setStartCounting(!startCounting);
     setCounter(initialCount);
     setShowIcon(true);
-  }
-
-  function stopExercise() {
-    setIsBreathing(false);
-    setStartCounting(false);
-    setDoneMessage(true);
-  }
-
-  useEffect(() => {
     rain.play();
-    rain.volume = 0.6;
-  }, []);
+  }
 
   useEffect(() => {
     if (isBreathing && startCounting) {
@@ -53,11 +43,22 @@ export default function Breathing() {
     }
   }, [isBreathing, exercise, startCounting, counter, seconds]);
 
+  function stopExercise() {
+    setIsBreathing(false);
+    setStartCounting(false);
+    setDoneMessage(true);
+    rain.pause();
+    rain.currentTime = 0;
+  }
+
   return (
     <>
       {!doneMessage ? (
         <div
-          style={{ height: "100vh", backgroundImage: `url(${RainyAnimation})` }}
+          style={{
+            height: "100vh",
+            backgroundImage: `url(${RainyAnimation})`,
+          }}
         >
           <div
             style={{
