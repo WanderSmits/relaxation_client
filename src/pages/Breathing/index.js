@@ -24,8 +24,12 @@ export default function Breathing() {
 
   //
   const initialCount = 0.1 * 60;
-  const seconds = profile.interval * 1000;
+  const seconds =
+    profile.interval == undefined
+      ? (profile.interval = 3)
+      : profile.interval * 1000;
 
+  console.log("Interval", profile.interval);
   const rain = new Audio(RainySounds);
 
   function toggle() {
@@ -33,8 +37,11 @@ export default function Breathing() {
     setStartCounting(!startCounting);
     setCounter(initialCount);
     setShowIcon(true);
-    rain.play();
   }
+
+  useEffect(() => {
+    rain.play();
+  }, []);
 
   useEffect(() => {
     if (isBreathing && startCounting) {
@@ -48,6 +55,7 @@ export default function Breathing() {
     setStartCounting(false);
     setDoneMessage(true);
     rain.pause();
+    rain.volume = 0;
     rain.currentTime = 0;
   }
 

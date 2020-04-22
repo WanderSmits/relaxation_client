@@ -57,7 +57,7 @@ export default function SignUp() {
         </Form.Group>
         <Form.Group className="mt-5">
           <Button
-            href="/myprofile"
+            to="/myprofile"
             variant="light"
             type="submit"
             onClick={submitForm}
