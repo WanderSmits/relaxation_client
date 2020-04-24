@@ -27,7 +27,7 @@ export default function ProgressExercise(props) {
     }
     //shows the progress the circle made in a more smooth way
     circleRef.current.style =
-      "transition: stroke-dashoffset 1000ms ease-in-out";
+      "transition: stroke-dashoffset 2000ms ease-in-out";
   }, [setOffset, counter, circumference, offset, stopExercise, initialCount]);
 
   return (

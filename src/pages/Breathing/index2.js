@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 
 import Button from "react-bootstrap/Button";
 
+import { useSelector } from "react-redux";
+import { selectProfile } from "../../store/profile/selector";
 import BreatheIn from "../../components/BreatheIn";
 import BreatheOut from "../../components/BreatheOut";
 import ProgressExercise from "../../components/ProgressExercise";
@@ -11,76 +12,56 @@ import DoneExercise from "../../components/DoneExercise";
 import RainyAnimation from "../../img/rainy_animation.svg";
 import RainySounds from "../../sounds/rain_sounds.mp3";
 
-import { selectProfile } from "../../store/profile/selector";
-
 export default function Breathing() {
-  const profile = useSelector(selectProfile);
+  // the rain sound at page load
   const [rain, setRain] = useState(new Audio(RainySounds));
-  const [paused, setPaused] = useState(true);
-  const [time, setTime] = useState(0);
-  const [icon, setIcon] = useState(false);
-  const [buttonClicked, setButtonClicked] = useState(false);
-  const [showTimer, setShowTimer] = useState(false);
-  const [target, setTarget] = useState(0);
-  const [initialValue, setInitialValue] = useState(false);
-  const [doneExercise, setDoneExercise] = useState(false);
+  // breathe interval
+  const [exercise, setExercise] = useState(0);
+  // total duration exercise
+  const [counter, setCounter] = useState(0);
 
-  const max = profile.duration_exercise * 60;
+  // when the user clicks on the breathe button
+  const [isBreathing, setIsBreathing] = useState(false);
+  // Screen when the exercise is done
+  const [doneMessage, setDoneMessage] = useState(false);
 
-  function tick() {
-    if (paused) return;
-    else setTime(time - 1);
+  //get the profile preferences from the user
+  const profile = useSelector(selectProfile);
 
-    if (time === target) {
-      const newIcon = icon === false ? true : false;
-      setIcon(newIcon);
+  // the duration of the exercise
+  const initialCount = profile.duration_exercise * 60;
 
-      const newTarget = target - profile.interval;
-      setTarget(newTarget);
-    }
-  }
+  // if profile.interval == undefined set default value
+  const seconds =
+    profile.interval == undefined
+      ? (profile.interval = 3)
+      : profile.interval * 1000;
 
   function toggle() {
-    setButtonClicked(!buttonClicked);
-    setPaused(!paused);
-    setShowTimer(true);
-    startingValues();
+    setIsBreathing(!isBreathing);
+    setCounter(initialCount);
   }
-
-  // setup initial values, is it the first time the initival value is set, set it to the max
-  function startingValues() {
-    if (!initialValue) {
-      setTarget(max - profile.interval);
-      setTime(max);
-      setInitialValue(true);
-    } else {
-      setTarget(target - 1);
-      setTime(time - 1);
-    }
-  }
-
-  function stopExercise() {
-    setButtonClicked(false);
-    setDoneExercise(true);
-    setRain(rain.pause());
-  }
-
-  useEffect(() => {
-    let timerID = setInterval(() => tick(), 1000);
-    return () => clearInterval(timerID);
-  });
 
   useEffect(() => {
     rain.play();
-    rain.volume = 0.4;
   }, []);
 
-  const action = paused ? "Breathe" : "Pause";
-  const display = time;
+  useEffect(() => {
+    if (isBreathing) {
+      setTimeout(() => setExercise(!exercise), seconds);
+      setTimeout(() => setCounter(counter - 1), 1000);
+    }
+  }, [isBreathing, exercise, counter, seconds]);
+
+  function stopExercise() {
+    setIsBreathing(false);
+    setDoneMessage(true);
+    setRain(rain.pause());
+  }
 
   return (
     <>
-      {!doneExercise ? (
+      {!doneMessage ? (
         <div
           style={{
             height: "100vh",
@@ -98,8 +79,8 @@ export default function Breathing() {
             }}
           >
             {/*Double ternary checks if button is clicked, if so show the icon and start the breathe-in interval*/}
-            {buttonClicked ? (
-              !icon ? (
+            {isBreathing ? (
+              exercise ? (
                 <BreatheIn duration={profile.interval} />
               ) : (
                 <BreatheOut duration={profile.interval} />
@@ -114,9 +95,15 @@ export default function Breathing() {
               height: "10vh",
             }}
           >
-            <Button variant="light" onClick={toggle}>
-              {action}
-            </Button>
+            {!isBreathing ? (
+              <Button variant="light" onClick={toggle}>
+                Breathe!
+              </Button>
+            ) : (
+              <Button variant="light" onClick={pauseExercise}>
+                Pause!
+              </Button>
+            )}
           </div>
           <h1
             style={{
@@ -124,10 +111,10 @@ export default function Breathing() {
               justifyContent: "center",
               alignItems: "center",
               height: "20vh",
-              color: "white",
+              color: "black",
             }}
           >
-            {showTimer ? display : null}
+            {isBreathing ? counter : null}
           </h1>{" "}
           <div
             style={{
@@ -137,10 +124,10 @@ export default function Breathing() {
               height: "20vh",
             }}
           >
-            {showTimer ? (
+            {isBreathing ? (
               <ProgressExercise
-                counter={time}
-                initialCount={max}
+                counter={counter}
+                initialCount={initialCount}
                 size={200}
                 strokeWidth={7}
                 circleOneStroke={"#ffffff"}

@@ -9,7 +9,7 @@ export default function BreatheIn(props) {
 
   useEffect(() => {
     audio.play();
-    audio.volume = 0.3;
+    audio.volume = 0.5;
   }, []);
 
   return (
