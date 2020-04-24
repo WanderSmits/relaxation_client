@@ -32,12 +32,15 @@ export default function Breathing() {
 
   function tick() {
     if (paused) return;
+    //if not paused, count down
     else setTime(time - 1);
 
+    // if time === user interval
     if (time === targetInterval) {
       const newIcon = icon === false ? true : false;
       setIcon(newIcon);
 
+      // set it so every time, time === targetInterval you set new target by doing - profile interval
       const newTarget = targetInterval - profile.interval;
       setTargetInterval(newTarget);
     }
@@ -53,6 +56,7 @@ export default function Breathing() {
   // setup initial values, is it the first time the initival value is set, set it to the total length of the exercise
   function startingValues() {
     if (!initialValue) {
+      // timer starts at 0, so + 1
       setTargetInterval(totalLength - profile.interval + 1);
       setTime(totalLength);
       setInitialValue(true);
