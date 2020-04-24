@@ -28,7 +28,7 @@ export default function Breathing() {
   const [doneExercise, setDoneExercise] = useState(false);
   const [paused, setPaused] = useState(true);
 
-  const max = profile.duration_exercise * 60;
+  const totalLength = profile.duration_exercise * 60;
 
   function tick() {
     if (paused) return;
@@ -50,11 +50,11 @@ export default function Breathing() {
     startingValues();
   }
 
-  // setup initial values, is it the first time the initival value is set, set it to the max
+  // setup initial values, is it the first time the initival value is set, set it to the total length of the exercise
   function startingValues() {
     if (!initialValue) {
-      setTargetInterval(max - profile.interval);
-      setTime(max);
+      setTargetInterval(totalLength - profile.interval + 1);
+      setTime(totalLength);
       setInitialValue(true);
     } else {
       setTargetInterval(targetInterval - 1);
@@ -143,7 +143,7 @@ export default function Breathing() {
             {showTimer ? (
               <ProgressExercise
                 counter={time}
-                initialCount={max}
+                initialCount={totalLength}
                 size={200}
                 strokeWidth={7}
                 circleOneStroke={"#ffffff"}
