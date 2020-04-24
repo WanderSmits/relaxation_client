@@ -16,14 +16,17 @@ import { selectProfile } from "../../store/profile/selector";
 export default function Breathing() {
   const profile = useSelector(selectProfile);
   const [rain, setRain] = useState(new Audio(RainySounds));
-  const [paused, setPaused] = useState(true);
+
   const [time, setTime] = useState(0);
+  const [targetInterval, setTargetInterval] = useState(0);
+  const [initialValue, setInitialValue] = useState(false);
+
   const [icon, setIcon] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
-  const [target, setTarget] = useState(0);
-  const [initialValue, setInitialValue] = useState(false);
+
   const [doneExercise, setDoneExercise] = useState(false);
+  const [paused, setPaused] = useState(true);
 
   const max = profile.duration_exercise * 60;
 
@@ -31,12 +34,12 @@ export default function Breathing() {
     if (paused) return;
     else setTime(time - 1);
 
-    if (time === target) {
+    if (time === targetInterval) {
       const newIcon = icon === false ? true : false;
       setIcon(newIcon);
 
-      const newTarget = target - profile.interval;
-      setTarget(newTarget);
+      const newTarget = targetInterval - profile.interval;
+      setTargetInterval(newTarget);
     }
   }
 
@@ -50,11 +53,11 @@ export default function Breathing() {
   // setup initial values, is it the first time the initival value is set, set it to the max
   function startingValues() {
     if (!initialValue) {
-      setTarget(max - profile.interval);
+      setTargetInterval(max - profile.interval);
       setTime(max);
       setInitialValue(true);
     } else {
-      setTarget(target - 1);
+      setTargetInterval(targetInterval - 1);
       setTime(time - 1);
     }
   }
