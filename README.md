@@ -1,39 +1,35 @@
-:hibiscus: 
-# Lunchbreak relaxation 
-:hibiscus:
+# :hibiscus: Lunchbreak Relaxation :hibiscus:
+
+
+## What this app is about
+
+Lunchbreak Relaxation is an breathing exercise application, so you can recover from your everyday stress, anywhere/any time in just 10 minutes.  
 
 ## User Stories:
 
 - As an user, I would like a daily motivational quote to stay motivated
 
-- As an user, I would like to sign up and login. I must register before I can set my breathing exercise preferences
+- As an user, I would like to Log in, Sign up and Log out. I must register before I can set my breathing exercise preferences
 
-- As an user, I am able to create a profile to see my breathing exercises and notification preferences (breathing interval / how long my breathing exercises is gonna last)
+- As an user, I am able to create a profile to see my breathing exercises 
 
 - As an user, A streak of how many days I participated is being keeping track of to see how much progress I made
 
-## Front end:
+## User stories to be added in the future
 
-1. Clone the app
+- As an user I would like to have a mobile app
 
-```
-git clone git@github.com:git@github.com:WanderSmits/relaxation_client.git
-```
+- As a mobile user I would like to be notified, so I dont forget to relax
 
-2. cd into your project
 
-```
-cd relaxation_client
-```
+## Git workflow
 
-3. install dependencies
+In this project I try to use:
 
-```
-npm install
-```
+- Good commit messages
+- Well named branches
+- Pull requests with summaries
 
-4. Start development server with npm start
+## Server-repo
 
-```
-npm start
-```
+The server side of this project is an Express server connected to a Sequelize database. [Click here for more details](https://github.com/WanderSmits/relaxation_server)
