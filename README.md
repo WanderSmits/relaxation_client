@@ -1,3 +1,5 @@
+:hibiscus: # Lunchbreak relaxation :hibiscus:
+
 ## User Stories:
 
 - As an user, I would like a daily motivational quote to stay motivated
