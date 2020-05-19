@@ -3,7 +3,13 @@
 
 ## What this app is about
 
-Lunchbreak Relaxation is an breathing exercise application, so you can recover from your everyday stress, anywhere/any time in just 10 minutes.  
+Lunchbreak Relaxation is an breathing exercise application, so you can recover from your everyday stress, anywhere/any time in just 10 minutes. 
+
+## How to use
+
+In the breathing preferences tab you can set the Breathe Interval, in the case below, the user set the interval at 3 seconds.
+
+![](3seconds.gif)
 
 ## User Stories:
 
