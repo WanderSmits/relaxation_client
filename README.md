@@ -9,7 +9,6 @@ Lunchbreak Relaxation is an breathing exercise application, so you can recover f
 
 In the breathing preferences tab you can set the Breathe Interval, in the case below, the user set the interval at 3 seconds.
 
-![](3seconds.gif)
 
 ## User Stories:
 
